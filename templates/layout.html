@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>HashTag</title>
+
+	<link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+	
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+	<script src="../node_modules/popper.js/dist/popper.js"></script>
+	<script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+	
+
+	<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+	
+	<div class="main">
+		
+		<div class="sidebar text-white">
+
+			<div class="logo text-dark mb-3">
+				<a href="#" id="main-page-link">
+					<div>
+						<img src="../src/icon.png" draggable="false" alt="app logo">
+					</div>
+					<h5>HashTag</h5>
+				</a>
+			</div>
+
+
+			<div class="p-2 font-weight-bold menu" >
+				<div class="main-link" id="collapse-hash" data-toggle="collapse" href="#hashcollapse" role="button" aria-expanded="false" aria-controls="hashcollapse">
+					Hash<i class="material-icons" id="hash-icon">keyboard_arrow_down</i>
+				</div>
+				
+				<div class="collapse text-dark" id="hashcollapse">
+					<hr class="mt-2">
+					<p><a class="pl-3 link" id="md5">MD5</a></p>
+					<p><a class="pl-3 link" id="bcrypt">Bcrypt</a></p>
+					<a class="pl-3 link" id="sha256">SHA-256</a>
+				</div>
+			</div>
+
+			<div class="p-2 font-weight-bold menu" >
+				<div class="verify-link" id="verify-link">Verify</div>
+			</div>
+
+			
+
+			<div class="p-2 font-weight-bold menu wip">
+				<div class="main-link" id="collapse-crypt" data-toggle="collapse" href="#cryptcollapse" role="button" aria-expanded="false" aria-controls="cryptcollapse">
+					Crypt<i class="material-icons" id="crypt-icon">keyboard_arrow_down</i>
+				</div>
+				
+				<!-- <div class="collapse text-dark" id="cryptcollapse">
+					<hr class="mt-2">
+					<p><a class="pl-3 link" id="aes">AES</a></p>
+					<a class="pl-3 link" id="aes">RSA</a>
+				</div> -->
+			</div>
+
+			
+
+
+		</div>
+
+		<div class="content pr-3" id="content">
+			<!-- main content. We inject html with ajax here. this is like the root div in react -->
+			
+		</div>
+
+
+
+	</div>
+
+
+	<script>
+
+		window.$ = window.jQuery = require('jquery');
+		require('bootstrap');
+    	require('popper.js');
+
+    	const electron = require('electron')
+		const shell = electron.shell
+		const ipc = electron.ipcRenderer
+
+		const swal = require('sweetalert')
+
+		const copyHash = (self) => {
+			const el = document.createElement('textarea');
+			el.value = self.getAttribute("hash");
+			document.body.appendChild(el);
+			el.select();
+			document.execCommand('copy');
+			document.body.removeChild(el);
+			
+			
+			let parent = self.parentNode
+			let child = parent.childNodes[3]
+			child.style.display = "inline"
+			child.style.filter = "opacity(100%)"
+			setTimeout(() => {
+				child.style.filter = "opacity(0%)"
+				child.style.display = "none"
+			}, 1000);
+			
+		}
+
+		$(document).ready(function(){
+
+			
+
+			$.ajax({
+				url: "main.html",
+				context: document.body,
+				success: function(response){
+					$('#content').html(response);
+				}
+			});
+			
+			$("#md5").click(function(){
+				$.ajax({
+					url: "md5.html",
+					context: document.body,
+					success: function(response){
+						$('#content').html(response);
+						
+					}
+				});
+			});
+
+			$("#sha256").click(function(){
+				$.ajax({
+					url: "sha256.html",
+					context: document.body,
+					success: function(response){
+						$('#content').html(response);
+						
+					}
+				});
+			});
+
+			$("#bcrypt").click(function(){
+				$.ajax({
+					url: "bcrypt.html",
+					context: document.body,
+					success: function(response){
+						$('#content').html(response);
+						
+					}
+				});
+			});
+
+			$("#verify-link").click(function(){
+				$.ajax({
+					url: "verify.html",
+					context: document.body,
+					success: function(response){
+						$('#content').html(response);
+						
+					}
+				});
+			});
+
+			$("#main-page-link").click(function(){
+				$.ajax({
+					url: "main.html",
+					context: document.body,
+					success: function(response){
+						$('#content').html(response);
+						
+					}
+				});
+			});
+		});
+
+
+		document.getElementById("collapse-hash").addEventListener("click", () => {
+			let x = document.getElementById("hash-icon");
+			if (x.innerHTML === "keyboard_arrow_down") {
+				x.innerHTML = "keyboard_arrow_up";
+			} else {
+				x.innerHTML = "keyboard_arrow_down";
+			}
+				
+			
+		})
+
+		/*document.getElementById("collapse-crypt").addEventListener("click", () => {
+			let x = document.getElementById("crypt-icon");
+			if (x.innerHTML === "keyboard_arrow_down") {
+				x.innerHTML = "keyboard_arrow_up";
+			} else {
+				x.innerHTML = "keyboard_arrow_down";
+			}
+		})*/
+
+
+
+
+
+	</script>
+
+</body>
+</html>

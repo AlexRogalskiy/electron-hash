@@ -1,0 +1,33 @@
+{
+  "name": "hashtag",
+  "version": "1.0.0",
+  "description": "application that hash, verify a hash ...",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-packager . HashTag --asar --plateform=win32 --icon=src/icon.ico --overwrite --prune=true --arch=x64"
+  },
+  "keywords": [
+    "Electron",
+    "Javascript",
+    "Hash",
+    "Security"
+  ],
+  "author": "Robin Bidanchon",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^7.2.4",
+    "electron-packager": "^14.2.0"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "bootstrap": "^4.4.1",
+    "jquery": "^3.5.0",
+    "js-sha256": "^0.9.0",
+    "lowdb": "^1.0.0",
+    "md5": "^2.2.1",
+    "popper.js": "^1.16.1",
+    "sweetalert": "^2.1.2",
+    "underscore": "^1.9.2"
+  }
+}

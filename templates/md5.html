@@ -1,0 +1,37 @@
+<h1 class="text-center mt-2">MD5</h1>
+
+<p class="text-justify" style="font-size: 14px;">The MD5 message-digest algorithm is a widely used hash function producing a 128-bit hash value. Although MD5 was initially designed to ... <a href="#" id="md5-learn">Learn more</a></p>
+
+<hr class="mx-3" style="background-color: #aaa">
+
+<div class="form-group">
+	<label for="text-to-hash-md5">Enter something to hash :</label>
+	<textarea class="form-control" id="text-to-hash-md5" style="min-height: 55px; max-height: 55px; height: 55px"></textarea>
+</div>
+
+<button class="btn btn-block font-weight-bold" id="md5-button">
+	Hash
+</button>
+
+<script>
+	
+	
+
+	document.getElementById("md5-learn").addEventListener("click", () => {
+		shell.openExternal("https://en.wikipedia.org/wiki/MD5")
+	})
+
+	if(typeof md5_button === 'undefined') {
+		let md5_button = document.getElementById("md5-button")
+		md5_button.addEventListener("click", () => {
+			console.log("click md5")
+			let data = document.getElementById("text-to-hash-md5")
+			ipc.send("hash-md5", data.value)
+			ipc.once("hash-md5-reply", (evt, args) => {
+				data.value = args
+			})
+		})
+	}
+	
+
+</script>

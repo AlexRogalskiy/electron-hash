@@ -1,0 +1,35 @@
+<h1 class="text-center mt-2">SHA-256</h1>
+
+<p class="text-justify" style="font-size: 14px;">SHA-2 (Secure Hash Algorithm 2) is a set of cryptographic hash functions designed by the United States National Security Agency (NSA). They are built using the ... <a href="#" id="sha-learn">Learn more</a></p>
+
+<hr class="mx-3" style="background-color: #aaa">
+
+<div class="form-group">
+	<label for="text-to-hash-sha">Enter something to hash :</label>
+	<textarea class="form-control" id="text-to-hash-sha" style="min-height: 65px; max-height: 65px; height: 65px"></textarea>
+</div>
+
+<button class="btn btn-block font-weight-bold" id="sha-button">Hash</button>
+
+<script>
+	
+	
+
+	document.getElementById("sha-learn").addEventListener("click", () => {
+		shell.openExternal("https://en.wikipedia.org/wiki/SHA-2")
+	})
+
+	if(typeof sha_button === 'undefined') {
+		let sha_button = document.getElementById("sha-button")
+		sha_button.addEventListener("click", () => {
+			console.log("click sha256")
+			let data = document.getElementById("text-to-hash-sha")
+			ipc.send("hash-sha", data.value)
+			ipc.once("hash-sha-reply", (evt, args) => {
+				data.value = args
+			})
+		})
+	}
+	
+
+</script>
